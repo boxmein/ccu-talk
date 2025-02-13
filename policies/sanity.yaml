@@ -1,0 +1,6 @@
+# needs a few EC2 instances (to save cost, set them as "Stopped")
+policies:
+  - name: custodian-sanity-demo1
+    resource: ec2
+    filters:
+      - 'tag:CloudCustodianDemo': present

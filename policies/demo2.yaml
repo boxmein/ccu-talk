@@ -1,0 +1,23 @@
+policies:
+  - name: demo-launch-wizard-usage-alert
+    mode:
+      type: config-rule
+      role: arn:aws:iam::{account_id}:role/custodian
+    resource: aws.security-group
+    filters:
+      - type: value
+        op: glob
+        key: GroupName
+        value: launch-wizard-*
+    actions: 
+      - type: post-finding
+        description: |
+          Launch wizard security group found
+        severity_label: LOW
+        types:
+          - 'Software and Configuration Checks/category/classifier'
+        recommendation: 'Review the security group and ensure it is properly configured'
+        title: 'demo-launch-wizard-usage-alert'
+        confidence: 100
+        compliance_status: FAILED
+

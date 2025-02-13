@@ -1,0 +1,11 @@
+# needs a few EC2 instances (to save cost, set them as "Stopped")
+policies:
+  - name: custodian-demo-1-search-engine
+    resource: ec2
+    filters:
+      - and:
+        - 'tag:CloudCustodianDemo': present
+        - or:
+          - 'tag:Owner': absent
+          - 'tag:CostCenter': absent
+

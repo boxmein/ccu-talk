@@ -1,0 +1,22 @@
+# abandoned mark-and-sweep
+# unused ec2 security groups mark-for-op + delete after 1 day
+policies:
+  - name: custodian-demo4-unused-sg
+    resource: security-group
+    filters:
+      - "tag:my_mark_tag": absent
+      - unused
+    actions:
+      - type: mark-for-op
+        tag: my_mark_tag
+        op: delete
+        days: 1
+  - name: custodian-demo4-delete-sg
+    resource: security-group
+    filters:
+      - "tag:my_mark_tag": not-null
+      - type: marked-for-op
+        tag: my_mark_tag
+        op: delete
+    actions:
+      - type: delete

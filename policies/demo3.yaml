@@ -1,0 +1,25 @@
+policies:
+  - name: demo3-s3-block-public-access
+    resource: s3
+    description: |
+      Blocks public access to bucket contents.
+    mode:
+      type: cloudtrail
+      events:
+        - CreateBucket
+        - source: 's3.amazonaws.com'
+          event: PutPublicAccessBlock
+          ids: requestParameters.bucketName
+        - source: 's3.amazonaws.com'
+          event: DeletePublicAccessBlock
+          ids: requestParameters.bucketName
+      role: arn:aws:iam::{account_id}:role/custodian
+    filters:
+      - check-public-block
+    actions:
+      - type: set-public-block
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
