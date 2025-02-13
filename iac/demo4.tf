@@ -5,7 +5,7 @@ resource "aws_security_group" "bad2" {
   tags = {
     CloudCustodianDemo = "true"
     # NOTE: simulating resources that were already waiting to be deleted
-    my_mark_tag = "Resource does not meet policy: delete@2024/10/01"
+    my_mark_tag = "Resource does not meet policy: delete@2025/02/15"
   }
 }
 
